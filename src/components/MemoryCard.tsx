@@ -1,10 +1,12 @@
 import { decode } from "html-entities";
-import { EmojiData } from "../App";
+import { EmojiData, SelectedCard } from "../App";
 import EmojiButton from "./EmojiButton";
 
 type MemoryCardProps = {
   readonly handleClick: (name: string, index: number) => void;
   readonly data: EmojiData[];
+  readonly selectedCards: SelectedCard[];
+  readonly matchedCards: SelectedCard[];
 };
 
 export default function MemoryCard({
@@ -20,15 +22,17 @@ export default function MemoryCard({
     const matchedCardEntry = matchedCards.find((card) => card.index === index);
 
     return (
-      <li key={emoji.name + index} className="card-item">
+      <li key={emoji.name + index} className='card-item'>
         <EmojiButton
-          content={selectedCardEntry || matchedCardEntry ? decode(emoji.hex) : "❓"}
+          content={
+            selectedCardEntry || matchedCardEntry ? decode(emoji.hex) : "❓"
+          }
           handleClick={() => handleClick(emoji.name, index)}
-          style="btn btn--emoji"
+          style='btn btn--emoji'
         />
       </li>
     );
   });
 
-  return <ul className="card-container">{cardElements}</ul>;
+  return <ul className='card-container'>{cardElements}</ul>;
 }
