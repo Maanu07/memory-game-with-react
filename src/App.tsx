@@ -68,18 +68,9 @@ function App() {
   []);
 
   const turnCard = (name: string, index: number) => {
-    const selectedCardEntry = selectedCards.find(
-      (card) => card.index === index
-    );
-
-    const matchedCardEntry = matchedCards.find((card) => card.index === index);
-
-    // don't do anything if the card is already  selected or matched
-    if (selectedCardEntry || matchedCardEntry) return;
-
-    if (!selectedCardEntry && selectedCards.length < 2) {
+    if (selectedCards.length < 2) {
       setSelectedCards((prev) => [...prev, { name, index }]);
-    } else if (!selectedCardEntry && selectedCards.length === 2) {
+    } else if (selectedCards.length === 2) {
       setSelectedCards([{ name, index }]);
     }
   };

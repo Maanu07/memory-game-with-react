@@ -1,4 +1,5 @@
 import { decode } from "html-entities";
+
 import { EmojiData, SelectedCard } from "../App";
 import EmojiButton from "./EmojiButton";
 
@@ -21,14 +22,19 @@ export default function MemoryCard({
     );
     const matchedCardEntry = matchedCards.find((card) => card.index === index);
 
+    const cardStyle = matchedCardEntry
+      ? "card-item--matched"
+      : selectedCardEntry
+      ? "card-item--selected"
+      : "";
+
     return (
-      <li key={emoji.name + index} className='card-item'>
+      <li key={emoji.name + index} className={`card-item ${cardStyle}`}>
         <EmojiButton
-          content={
-            selectedCardEntry || matchedCardEntry ? decode(emoji.hex) : "❓"
-          }
+          content={decode(emoji.hex)}
           handleClick={() => handleClick(emoji.name, index)}
-          style='btn btn--emoji'
+          selectedCardEntry={selectedCardEntry}
+          matchedCardEntry={matchedCardEntry}
         />
       </li>
     );
